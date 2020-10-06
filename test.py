@@ -29,10 +29,10 @@ from textbook.problems import (
     Zebra,
 )
 
-from instrumented_solvers_answer import (
-    min_conflicts_instrumented,
-    backtracking_search_instrumented,
-)
+# from instrumented_solvers_answer import (
+#     min_conflicts_instrumented,
+#     backtracking_search_instrumented,
+# )
 
 
 SEED = 42  # seed used to generate `examples`
