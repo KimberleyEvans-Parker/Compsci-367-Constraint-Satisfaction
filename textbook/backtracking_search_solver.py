@@ -4,6 +4,10 @@ from .sortedcontainers import SortedDict
 
 from .utils import argmin_random_tie, count, first
 
+# global num_assignments
+# global num_backtracks
+# num_assignments = 0
+# num_backtracks = 0
 
 # ______________________________________________________________________________
 # Constraint Propagation with AC3
@@ -22,7 +26,8 @@ def dom_j_up(csp, queue):
 def AC3(csp, queue=None, removals=None, arc_heuristic=dom_j_up):
     """[Figure 6.3]"""
     if queue is None:
-        queue = {(Xi, Xk): None for Xi in csp.variables for Xk in csp.neighbors[Xi]}
+        queue = {
+            (Xi, Xk): None for Xi in csp.variables for Xk in csp.neighbors[Xi]}
     csp.support_pruning()
     queue = arc_heuristic(csp, queue)
     checks = 0
@@ -122,6 +127,10 @@ def mac(csp, var, value, assignment, removals, constraint_propagation=AC3):
 
 # The search, proper
 
+num_assignments = 0
+num_backtracks = 0
+
+
 def backtracking_search(
     csp,
     select_unassigned_variable=first_unassigned_variable,
@@ -131,10 +140,18 @@ def backtracking_search(
 ):
     """[Figure 6.5]"""
 
+    global num_assignments
+    global num_backtracks
+    num_assignments = 0
+    num_backtracks = 0
+
     class MaxSteps(Exception):
         """Raise to terminate backtracking."""
 
     def backtrack(assignment):
+        global num_assignments
+        global num_backtracks
+
         if len(assignment) == len(csp.variables):
             return assignment
         var = select_unassigned_variable(assignment, csp)
@@ -142,12 +159,14 @@ def backtracking_search(
             if csp.nassigns == max_steps:
                 raise MaxSteps()
             if 0 == csp.nconflicts(var, value, assignment):
+                num_assignments += 1
                 csp.assign(var, value, assignment)
                 removals = csp.suppose(var, value)
                 if inference(csp, var, value, assignment, removals):
                     result = backtrack(assignment)
                     if result is not None:
                         return result
+                    num_backtracks += 1
                 csp.restore(removals)
         csp.unassign(var, assignment)
         return None

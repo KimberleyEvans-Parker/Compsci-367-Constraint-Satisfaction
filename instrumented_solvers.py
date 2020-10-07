@@ -7,12 +7,12 @@ from textbook.min_conflicts_solver import *
 
 
 def backtracking_search_instrumented(
-        csp,
-        select_unassigned_variable=first_unassigned_variable,
-        order_domain_values=unordered_domain_values,
-        inference=no_inference,
-        max_steps=100_000,
-    ):
+    csp,
+    select_unassigned_variable=first_unassigned_variable,
+    order_domain_values=unordered_domain_values,
+    inference=no_inference,
+    max_steps=100_000,
+):
     """Return a dict where the key 'assignment' is identical to to result of backtracking_search(csp, select_unassigned_variable, ...).
 
     The key 'num_assignments' == the number of times csp.assign is called.
@@ -21,10 +21,19 @@ def backtracking_search_instrumented(
     ######################
     ### Your code here ###
     ######################
+
+    results = backtracking_search(
+        csp, select_unassigned_variable, order_domain_values, inference, max_steps)
+    from textbook.backtracking_search_solver import num_assignments
+    from textbook.backtracking_search_solver import num_backtracks
+
     return {
-        "assignment": dict or None,
-        "num_assignments": int,
-        "num_backtracks": int,
+        # "assignment": dict or None,
+        # "num_assignments": int,
+        # "num_backtracks": int,
+        "assignment": results,
+        "num_assignments": num_assignments,
+        "num_backtracks": num_backtracks,
     }
 
 
