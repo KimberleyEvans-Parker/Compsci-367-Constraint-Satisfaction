@@ -33,6 +33,7 @@ def backtracking_search_instrumented(
         # "num_backtracks": int,
         "assignment": results,
         "num_assignments": num_assignments,
+        "num_assignments": num_assignments,
         "num_backtracks": num_backtracks,
     }
 
@@ -46,8 +47,12 @@ def min_conflicts_instrumented(csp, max_steps=100_000):
     ######################
     ### Your code here ###
     ######################
+    assignment = min_conflicts(csp, max_steps)
     return {
-        "assignment": dict or None,
-        "num_assignments": int,
-        "num_repair_assignments": int,
+        # "assignment": dict or None,
+        # "num_assignments": int,
+        # "num_repair_assignments": int,
+        "assignment": assignment,
+        "num_assignments": csp.nassigns,
+        "num_repair_assignments": csp.nassigns - len(csp.variables),
     }
