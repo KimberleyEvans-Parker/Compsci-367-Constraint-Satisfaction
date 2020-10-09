@@ -24,17 +24,14 @@ def backtracking_search_instrumented(
 
     results = backtracking_search(
         csp, select_unassigned_variable, order_domain_values, inference, max_steps)
-    from textbook.backtracking_search_solver import num_assignments
-    from textbook.backtracking_search_solver import num_backtracks
 
     return {
         # "assignment": dict or None,
         # "num_assignments": int,
         # "num_backtracks": int,
         "assignment": results,
-        "num_assignments": num_assignments,
-        "num_assignments": num_assignments,
-        "num_backtracks": num_backtracks,
+        "num_assignments": csp.nassigns,
+        "num_backtracks": csp.num_backtracks,
     }
 
 

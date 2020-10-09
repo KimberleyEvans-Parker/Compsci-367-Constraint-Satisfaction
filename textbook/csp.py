@@ -87,7 +87,8 @@ class Node:
     def child_node(self, problem, action):
         """[Figure 3.10]"""
         next_state = problem.result(self.state, action)
-        next_node = Node(next_state, self, action, problem.path_cost(self.path_cost, self.state, action, next_state))
+        next_node = Node(next_state, self, action, problem.path_cost(
+            self.path_cost, self.state, action, next_state))
         return next_node
 
     def solution(self):
@@ -184,6 +185,7 @@ class CSP(Problem):
         self.constraints = constraints
         self.curr_domains = None
         self.nassigns = 0
+        self.num_backtracks = 0
 
     def assign(self, var, val, assignment):
         """Add {var: val} to assignment; Discard the old value if any."""
@@ -242,7 +244,8 @@ class CSP(Problem):
         """Make sure we can prune values from domains. (We want to pay
         for this only if we use it.)"""
         if self.curr_domains is None:
-            self.curr_domains = {v: list(self.domains[v]) for v in self.variables}
+            self.curr_domains = {
+                v: list(self.domains[v]) for v in self.variables}
 
     def suppose(self, var, value):
         """Start accumulating inferences from assuming var=value."""
