@@ -72,13 +72,9 @@ def backtracking_search_instrumented(
         csp, select_unassigned_variable, order_domain_values, inference, max_steps)
     finish = time.time()
     return {
-        # "assignment": dict or None,
-        # "num_assignments": int,
-        # "num_backtracks": int,
-        "num_assignments": csp.nassigns,
-        "num_backtracks": csp.num_backtracks,
-        # "num_backtracks": num_backtracks,
-        "assignment": results,
+        "num_assignments": csp.nassigns,  # int
+        "num_backtracks": csp.num_backtracks,  # int
+        "assignment": results,  # dict or None
         "time": finish - start
     }
 
@@ -96,11 +92,8 @@ def min_conflicts_instrumented(csp, max_steps=100_000):
     assignment = min_conflicts(csp, max_steps)
     finish = time.time()
     return {
-        # "assignment": dict or None,
-        # "num_assignments": int,
-        # "num_repair_assignments": int,
-        "assignment": assignment,
-        "num_assignments": csp.nassigns,
-        "num_repair_assignments": csp.nassigns - len(csp.variables),
+        "assignment": assignment,  # dict or None
+        "num_assignments": csp.nassigns,  # int
+        "num_repair_assignments": csp.nassigns - len(csp.variables),  # int
         "time": finish - start
     }
