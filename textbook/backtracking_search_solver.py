@@ -136,6 +136,8 @@ def backtracking_search(
 ):
     """[Figure 6.5]"""
 
+    csp.num_backtracks = 0
+
     class MaxSteps(Exception):
         """Raise to terminate backtracking."""
 

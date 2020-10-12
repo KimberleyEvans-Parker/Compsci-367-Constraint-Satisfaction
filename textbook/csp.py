@@ -185,7 +185,7 @@ class CSP(Problem):
         self.constraints = constraints
         self.curr_domains = None
         self.nassigns = 0
-        self.num_backtracks = 0
+        # self.num_backtracks = 0
 
     def assign(self, var, val, assignment):
         """Add {var: val} to assignment; Discard the old value if any."""
